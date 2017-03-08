@@ -25,7 +25,10 @@ public class Main {
 
         System.out.println("Ustawienie oceny 3.0 dla studenta o albumie 807834");
         setGradeByIndexNo(807834, 3.0);
-        
+
+        sl.add(new Student("KOKOSZKA", "MARCIN", 169472, 4.5));
+        showAllStudents();
+
     }
 
     public static void showAllStudents() {

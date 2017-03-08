@@ -55,7 +55,7 @@ public class StudentList {
 
             while ((line = br.readLine()) != null) {
                 dataFromLine = line.split(";");
-                add(new Student(dataFromLine[0], dataFromLine[1], Integer.parseInt(dataFromLine[2]), Double.parseDouble(dataFromLine[3])));
+                addAtTheEndOfStudents(new Student(dataFromLine[0], dataFromLine[1], Integer.parseInt(dataFromLine[2]), Double.parseDouble(dataFromLine[3])));
             }
 
         } catch (IOException e) {
@@ -65,7 +65,7 @@ public class StudentList {
         }
     }
 
-    private void add(Student e) {
+    private void addAtTheEndOfStudents(Student e) {
         Student[] temp = new Student[students.length + 1];
         for (int i = 0; i < students.length; i++) {
             temp[i] = students[i];
@@ -73,4 +73,24 @@ public class StudentList {
         temp[students.length] = e;
         students = temp;
     }
+
+    public void add(Student s){
+        Student[] temp = new Student[students.length + 1];
+        int i = 0;
+        int j = 0;
+        while (students[j].getIndexNo() < s.getIndexNo()){
+            temp[i] = students[j];
+            j++;
+            i++;
+        }
+        temp[i] = s;
+        i++;
+        while (i < temp.length){
+            temp[i] = students[j];
+            j++;
+            i++;
+        }
+        students = temp;
+    }
+
 }
