@@ -22,6 +22,10 @@ public class Main {
         System.out.println();
 
         averagePositiveGrade();
+
+        System.out.println("Ustawienie oceny 3.0 dla studenta o albumie 807834");
+        setGradeByIndexNo(807834, 3.0);
+        
     }
 
     public static void showAllStudents() {
@@ -30,7 +34,16 @@ public class Main {
         sl.showStudents(ai);
     }
 
-    public static void setGradeByIndexNo() {
+    public static void setGradeByIndexNo(int indexNo, double grade) {
+        ArrayIterator ai = new ArrayIterator(sl.getStudents());
+        Predicate p = new Predicate(){
+            @Override
+            public boolean accept(Object o) {
+                return ((Student)o).getIndexNo() == indexNo;
+            }
+        };
+        FilteringArrayIterator fai = new FilteringArrayIterator(ai, p);
+        sl.setGrade(fai, grade);
 
     }
 
