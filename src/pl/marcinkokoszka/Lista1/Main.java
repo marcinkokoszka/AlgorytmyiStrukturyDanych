@@ -1,10 +1,10 @@
-package pl.marcinkokoszka;
+package pl.marcinkokoszka.Lista1;
 
-import pl.marcinkokoszka.iterators.ArrayIterator;
-import pl.marcinkokoszka.iterators.FilteringArrayIterator;
-import pl.marcinkokoszka.iterators.predicates.NegativeGradePredicate;
-import pl.marcinkokoszka.iterators.predicates.PositiveGradePredicate;
-import pl.marcinkokoszka.iterators.predicates.Predicate;
+import pl.marcinkokoszka.Lista1.iterators.ArrayIterator;
+import pl.marcinkokoszka.Lista1.iterators.FilteringArrayIterator;
+import pl.marcinkokoszka.Lista1.iterators.predicates.NegativeGradePredicate;
+import pl.marcinkokoszka.Lista1.iterators.predicates.PositiveGradePredicate;
+import pl.marcinkokoszka.Lista1.iterators.predicates.Predicate;
 
 public class Main {
     public static StudentList sl;

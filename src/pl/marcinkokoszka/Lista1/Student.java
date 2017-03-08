@@ -1,4 +1,4 @@
-package pl.marcinkokoszka;
+package pl.marcinkokoszka.Lista1;
 
 /**
  * Created by kokoseq on 08.03.2017.

@@ -1,4 +1,4 @@
-package pl.marcinkokoszka.iterators.predicates;
+package pl.marcinkokoszka.Lista1.iterators.predicates;
 
 /**
  * Created by kokoseq on 08.03.2017.

@@ -1,6 +1,6 @@
-package pl.marcinkokoszka;
+package pl.marcinkokoszka.Lista1;
 
-import pl.marcinkokoszka.iterators.Iterator;
+import pl.marcinkokoszka.Lista1.iterators.Iterator;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

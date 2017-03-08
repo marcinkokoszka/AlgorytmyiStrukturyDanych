@@ -1,6 +1,6 @@
-package pl.marcinkokoszka.iterators.predicates;
+package pl.marcinkokoszka.Lista1.iterators.predicates;
 
-import pl.marcinkokoszka.Student;
+import pl.marcinkokoszka.Lista1.Student;
 
 /**
  * Created by kokoseq on 08.03.2017.

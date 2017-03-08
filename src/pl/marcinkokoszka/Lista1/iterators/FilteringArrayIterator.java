@@ -1,7 +1,7 @@
-package pl.marcinkokoszka.iterators;
+package pl.marcinkokoszka.Lista1.iterators;
 
 
-import pl.marcinkokoszka.iterators.predicates.Predicate;
+import pl.marcinkokoszka.Lista1.iterators.predicates.Predicate;
 
 /**
  * Created by kokoseq on 08.03.2017.

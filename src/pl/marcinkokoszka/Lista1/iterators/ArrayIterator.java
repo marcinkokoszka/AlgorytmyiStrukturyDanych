@@ -1,4 +1,4 @@
-package pl.marcinkokoszka.iterators;
+package pl.marcinkokoszka.Lista1.iterators;
 
 /**
  * Created by kokoseq on 08.03.2017.
