@@ -38,4 +38,9 @@ public class ArrayIterator implements Iterator {
     public Object current(){
         return array[current];
     }
+
+    public void setCurrent(Object o){
+        array[current] = o;
+    }
+
 }

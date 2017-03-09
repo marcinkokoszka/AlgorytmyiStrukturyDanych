@@ -48,4 +48,8 @@ public class FilteringArrayIterator implements Iterator{
     public Object current(){
         return iterator.current();
     }
+
+    public void setCurrent(Object o){
+        iterator.setCurrent(o);
+    }
 }

@@ -14,21 +14,38 @@ public class Main {
         sl = new StudentList();
 
         showAllStudents();
-
         System.out.println();
 
         showAllStudentsWithNegativeGrade();
-
         System.out.println();
 
         averagePositiveGrade();
+        System.out.println();
 
         System.out.println("Ustawienie oceny 3.0 dla studenta o albumie 807834");
         setGradeByIndexNo(807834, 3.0);
+        System.out.println();
 
-        sl.add(new Student("KOKOSZKA", "MARCIN", 169472, 4.5));
+        System.out.println("Dodanie studenta: KOKOSZKA MARCIN, 169472, 4.5");
+        addStudent(new Student("KOKOSZKA", "MARCIN", 169472, 4.5));
+        System.out.println();
+
         showAllStudents();
+        System.out.println();
 
+        System.out.println("Usunięcie studenta o indeksie 169472");
+        removeStudent(169472);
+        System.out.println();
+
+        showAllStudents();
+        System.out.println();
+
+        System.out.println("Porządkowanie studentów według malejących ocen");
+        bubbleSortStudents();
+        System.out.println();
+
+        showAllStudents();
+        System.out.println();
     }
 
     public static void showAllStudents() {
@@ -66,5 +83,33 @@ public class Main {
         sl.showStudents(fai);
     }
 
+    public static void addStudent(Student s){
+        ArrayIterator ai = new ArrayIterator(sl.getStudents());
+        Predicate p = new Predicate(){
+            @Override
+            public boolean accept(Object o) {
+                return ((Student)o).getIndexNo() < s.getIndexNo();
+            }
+        };
+        FilteringArrayIterator fai = new FilteringArrayIterator(ai, p);
+        sl.add(fai, s);
+    }
+
+    public static void removeStudent(int indexNo){
+        ArrayIterator ai = new ArrayIterator(sl.getStudents());
+        Predicate p = new Predicate(){
+            @Override
+            public boolean accept(Object o) {
+                return ((Student)o).getIndexNo() != indexNo;
+            }
+        };
+        FilteringArrayIterator fai = new FilteringArrayIterator(ai, p);
+        sl.remove(fai);
+    }
+
+    public static void bubbleSortStudents(){
+        ArrayIterator ai = new ArrayIterator(sl.getStudents());
+        sl.bubbleSort(ai);
+    }
 
 }

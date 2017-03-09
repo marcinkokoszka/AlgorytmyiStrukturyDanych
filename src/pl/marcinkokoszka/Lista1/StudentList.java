@@ -30,7 +30,7 @@ public class StudentList {
         double averageGrade = 0;
         int counter = 0;
 
-        for(i.first(); !i.isDone(); i.next()){
+        for (i.first(); !i.isDone(); i.next()){
             averageGrade += ((Student) i.current()).getGrade();
             counter++;
         }
@@ -40,9 +40,67 @@ public class StudentList {
     }
 
     public void setGrade(Iterator i, double grade){
-        for(i.first(); !i.isDone(); i.next()){
+        for (i.first(); !i.isDone(); i.next()){
             ((Student) i.current()).setGrade(grade);
         }
+    }
+
+    public void add(Iterator i, Student s){
+        Student[] temp = new Student[students.length + 1];
+        int j = 0;
+
+        for (i.first(); !i.isDone(); i.next()){
+            temp[j] =  (Student)i.current();
+            j++;
+        }
+
+        temp[j] = s;
+        j++;
+
+        while (j < temp.length){
+            temp[j] = students[j-1];
+            j++;
+        }
+
+        students = temp;
+    }
+
+    public void remove(Iterator i){
+        Student[] temp = new Student[students.length - 1];
+        int j = 0;
+
+        for (i.first(); !i.isDone(); i.next()){
+            temp[j] =  (Student)i.current();
+            j++;
+        }
+
+        students = temp;
+    }
+
+    public void bubbleSort(Iterator i){
+        boolean swapped = true;
+        Student tempA = null;
+        Student tempB = null;
+
+        while(swapped){
+            swapped = false;
+            for (i.first(); !i.isDone(); i.next()) {
+                tempA = (Student) i.current();
+                i.next();
+                if(i.isDone()) break;
+                tempB = (Student) i.current();
+
+                if (tempA.getGrade() < tempB.getGrade()){
+                    i.setCurrent(tempA);
+                    i.previous();
+                    i.setCurrent(tempB);
+                    swapped = true;
+                } else {
+                    i.previous();
+                }
+            }
+        }
+
     }
 
     private void readStudentsFromTxt(){
@@ -71,25 +129,6 @@ public class StudentList {
             temp[i] = students[i];
         }
         temp[students.length] = e;
-        students = temp;
-    }
-
-    public void add(Student s){
-        Student[] temp = new Student[students.length + 1];
-        int i = 0;
-        int j = 0;
-        while (students[j].getIndexNo() < s.getIndexNo()){
-            temp[i] = students[j];
-            j++;
-            i++;
-        }
-        temp[i] = s;
-        i++;
-        while (i < temp.length){
-            temp[i] = students[j];
-            j++;
-            i++;
-        }
         students = temp;
     }
 
