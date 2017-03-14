@@ -26,7 +26,7 @@ public class StudentList {
         }
     }
 
-    public void averageGrade(Iterator i){
+    public double averageGrade(Iterator i){
         double averageGrade = 0;
         int counter = 0;
 
@@ -36,7 +36,7 @@ public class StudentList {
         }
 
         averageGrade /= counter;
-        System.out.println(averageGrade);
+        return averageGrade;
     }
 
     public void setGrade(Iterator i, double grade){
@@ -100,8 +100,8 @@ public class StudentList {
                 }
             }
         }
-
     }
+
 
     private void readStudentsFromTxt(){
         try (FileReader fr = new FileReader("Studenci.txt");

@@ -22,6 +22,12 @@ public class Main {
         averagePositiveGrade();
         System.out.println();
 
+        showAllStudentsWithPositiveGradeAboveAverage();
+        System.out.println();
+
+        showAllStudentsWithPositiveGradeBelowAverage();
+        System.out.println();
+
         System.out.println("Ustawienie oceny 3.0 dla studenta o albumie 807834");
         setGradeByIndexNo(807834, 3.0);
         System.out.println();
@@ -72,7 +78,7 @@ public class Main {
         Predicate p = new PositiveGradePredicate();
         FilteringArrayIterator fai = new FilteringArrayIterator(ai, p);
         System.out.println("średnia ocen studentów, którzy zaliczyli kurs:");
-        sl.averageGrade(fai);
+        System.out.println(sl.averageGrade(fai));
     }
 
     public static void showAllStudentsWithNegativeGrade(){
@@ -81,6 +87,38 @@ public class Main {
         FilteringArrayIterator fai = new FilteringArrayIterator(ai, p);
         System.out.println("Lista studentów, którzy nie zaliczyli kursu:");
         sl.showStudents(fai);
+    }
+
+    public static void showAllStudentsWithPositiveGradeAboveAverage(){
+        ArrayIterator ai = new ArrayIterator(sl.getStudents());
+        Predicate p = new PositiveGradePredicate();
+        FilteringArrayIterator fai = new FilteringArrayIterator(ai, p);
+        double average = sl.averageGrade(fai);
+        Predicate p2 = new Predicate(){
+            @Override
+            public boolean accept(Object o) {
+                return ((Student) o).getGrade() > average;
+            }
+        };
+        FilteringArrayIterator fai2 = new FilteringArrayIterator(ai, p2);
+        System.out.println("Lista studentów, którzy zaliczyli z oceną powyżej średniej:");
+        sl.showStudents(fai2);
+    }
+
+    public static void showAllStudentsWithPositiveGradeBelowAverage(){
+        ArrayIterator ai = new ArrayIterator(sl.getStudents());
+        Predicate p = new PositiveGradePredicate();
+        FilteringArrayIterator fai = new FilteringArrayIterator(ai, p);
+        double average = sl.averageGrade(fai);
+        Predicate p2 = new Predicate(){
+            @Override
+            public boolean accept(Object o) {
+                return ((Student) o).getGrade() < average;
+            }
+        };
+        FilteringArrayIterator fai2 = new FilteringArrayIterator(fai, p2);
+        System.out.println("Lista studentów, którzy zaliczyli z oceną poniżej średniej:");
+        sl.showStudents(fai2);
     }
 
     public static void addStudent(Student s){
