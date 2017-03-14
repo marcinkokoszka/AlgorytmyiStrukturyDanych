@@ -16,6 +16,13 @@ public class Student {
         this.grade = grade;
     }
 
+    public Student(Student s){
+        this.name = s.getName();
+        this.surname = s.getSurname();
+        this.indexNo = s.getIndexNo();
+        this.grade = s.getGrade();
+    }
+
     public String getName() {
         return name;
     }

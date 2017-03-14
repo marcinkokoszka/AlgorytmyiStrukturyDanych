@@ -1,7 +1,6 @@
 package pl.marcinkokoszka.Lista1;
 
-import pl.marcinkokoszka.Lista1.iterators.ArrayIterator;
-import pl.marcinkokoszka.Lista1.iterators.FilteringArrayIterator;
+import pl.marcinkokoszka.Lista1.iterators.*;
 import pl.marcinkokoszka.Lista1.iterators.predicates.NegativeGradePredicate;
 import pl.marcinkokoszka.Lista1.iterators.predicates.PositiveGradePredicate;
 import pl.marcinkokoszka.Lista1.iterators.predicates.Predicate;

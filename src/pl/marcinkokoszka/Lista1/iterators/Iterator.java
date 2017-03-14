@@ -8,7 +8,6 @@ public interface Iterator {
     void next();
     void first();
     void last();
-    void setCurrent(Object o);
     boolean isDone();
     Object current();
 }

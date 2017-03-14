@@ -85,15 +85,21 @@ public class StudentList {
         while(swapped){
             swapped = false;
             for (i.first(); !i.isDone(); i.next()) {
-                tempA = (Student) i.current();
+                tempA = new Student((Student) i.current());
                 i.next();
                 if(i.isDone()) break;
-                tempB = (Student) i.current();
+                tempB = new Student((Student) i.current());
 
                 if (tempA.getGrade() < tempB.getGrade()){
-                    i.setCurrent(tempA);
+                    ((Student) i.current()).setIndexNo(tempA.getIndexNo());
+                    ((Student) i.current()).setName(tempA.getName());
+                    ((Student) i.current()).setSurname(tempA.getSurname());
+                    ((Student) i.current()).setGrade(tempA.getGrade());
                     i.previous();
-                    i.setCurrent(tempB);
+                    ((Student) i.current()).setIndexNo(tempB.getIndexNo());
+                    ((Student) i.current()).setName(tempB.getName());
+                    ((Student) i.current()).setSurname(tempB.getSurname());
+                    ((Student) i.current()).setGrade(tempB.getGrade());
                     swapped = true;
                 } else {
                     i.previous();
