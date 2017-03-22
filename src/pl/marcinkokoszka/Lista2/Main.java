@@ -16,6 +16,8 @@ public class Main {
 
         LinkedList<Student> lls = readStudentsFromTxt();
 
+        System.out.println("ZADANIE 1");
+        System.out.println();
         System.out.println("Wszyscy studenci na liście:");
         printList(lls.iterator());
 
@@ -81,6 +83,9 @@ public class Main {
         lls.clear();
         System.out.println("Czy lista teraz jest pusta?");
         System.out.println(lls.isEmpty());
+
+        System.out.println("\n");
+        System.out.println("ZADANIE 2");
     }
 
     private static void printList(Iterator iterator){
@@ -109,4 +114,6 @@ public class Main {
             return null;
         }
     }
+
+
 }
