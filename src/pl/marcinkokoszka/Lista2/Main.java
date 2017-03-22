@@ -16,13 +16,78 @@ public class Main {
 
         LinkedList<Student> lls = readStudentsFromTxt();
 
-        Iterator llsIterator = lls.iterator();
+        System.out.println("Wszyscy studenci na liście:");
+        printList(lls.iterator());
 
-        while(!llsIterator.isDone()){
-            System.out.println(llsIterator.current());
+        System.out.println();
+        System.out.println("Ilość elementów listy: " + lls.size());
+
+        System.out.println();
+        System.out.println("Dodanie studenta na 3 miejsce w liście:");
+        Student mk = new Student("MARCIN", "KOKOSZKA", 169472, 4.5);
+        System.out.println(mk);
+        System.out.println();
+        lls.insert(2, mk);
+        System.out.println("Wszyscy studenci po dodaniu:");
+        printList(lls.iterator());
+
+        System.out.println();
+        System.out.println("Usunięcie studenta:");
+        System.out.println(mk);
+        System.out.println();
+        lls.delete(mk);
+        System.out.println("Wszyscy studenci po usunięciu:");
+        printList(lls.iterator());
+
+        System.out.println();
+        System.out.println("Dodanie studenta na koniec listy:");
+        System.out.println(mk);
+        System.out.println();
+        lls.add(mk);
+        System.out.println("Wszyscy studenci po dodaniu:");
+        printList(lls.iterator());
+
+        System.out.println();
+        System.out.println("Usunięcie studenta na pozycji 101:");
+        System.out.println();
+        lls.delete(100);
+        System.out.println("Wszyscy studenci po usunięciu:");
+        printList(lls.iterator());
+
+        System.out.println();
+        System.out.println("Student z pozycji 6:");
+        System.out.println(lls.get(5));
+
+        System.out.println();
+        System.out.println("Ustawienie studenta " + mk + " na pozycji 6:");
+        System.out.println("Zamiana z: " + lls.set(5, mk));
+        System.out.println("Wszyscy studenci po ustawieniu:");
+        printList(lls.iterator());
+
+        System.out.println();
+        System.out.println("Czy lista zawiera studenta " + mk + "?");
+        System.out.println(lls.contains(mk));
+
+        System.out.println();
+        System.out.println("Pozycja studenta " + mk + ":");
+        System.out.println(lls.indexOf(mk) + 1);
+
+        System.out.println();
+        System.out.println("Czy lista jest pusta?");
+        System.out.println(lls.isEmpty());
+
+        System.out.println();
+        System.out.println("Czyszczenie listy");
+        lls.clear();
+        System.out.println("Czy lista teraz jest pusta?");
+        System.out.println(lls.isEmpty());
+    }
+
+    private static void printList(Iterator iterator){
+        while(!iterator.isDone()){
+            System.out.println(iterator.current());
+            iterator.next();
         }
-
-
     }
 
     private static LinkedList<Student> readStudentsFromTxt(){

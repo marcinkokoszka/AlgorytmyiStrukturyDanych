@@ -29,7 +29,7 @@ public class LinkedList<T> implements List<T> {
         Element<T> currentElement = first;
 
         if (currentElement != null) {
-            for (int i = 0; i < index && currentElement.getNext() != null; i++) {
+            for (int i = 0; i < index - 1 && currentElement.getNext() != null; i++) {
                 currentElement = currentElement.getNext();
             }
             tempElement.setNext(currentElement.getNext());
@@ -155,7 +155,7 @@ public class LinkedList<T> implements List<T> {
         private Element<T> current = first;
 
         public void first(){
-            current = first.getNext();
+            current = first;
         }
 
         public void last(){
@@ -163,7 +163,7 @@ public class LinkedList<T> implements List<T> {
         }
 
         public boolean isDone(){
-            return current == first;
+            return current == null;
         }
 
         public void next(){

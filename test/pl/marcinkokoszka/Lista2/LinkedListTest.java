@@ -59,7 +59,6 @@ public class LinkedListTest {
         Student mk = new Student("Marcin", "Kokoszka", 169472, 4.5);
         lls.add(mk);
         lls.delete(mk);
-        //System.out.println(lls.get(0));
         assertEquals(-1, lls.indexOf(mk));
     }
 
@@ -69,7 +68,6 @@ public class LinkedListTest {
         Student mk = new Student("Marcin", "Kokoszka", 169472, 4.5);
         lls.add(mk);
         lls.delete(0);
-        //System.out.println(lls.get(0));
         assertEquals(-1, lls.indexOf(mk));
     }
 
@@ -149,7 +147,6 @@ public class LinkedListTest {
         lls.add(s3);
         lls.delete(0);
         lls.delete(0);
-        System.out.println(lls.get(0));
         assertFalse(lls.contains(s1));
         assertFalse(lls.contains(s2));
     }
@@ -165,7 +162,6 @@ public class LinkedListTest {
         lls.add(s3);
         lls.delete(0);
         lls.delete(1);
-        System.out.println(lls.get(0));
         assertFalse(lls.contains(s1));
         assertFalse(lls.contains(s3));
     }
