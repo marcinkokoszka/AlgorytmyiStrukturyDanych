@@ -58,21 +58,22 @@ public class CircularLinkedList {
     /* Extra method for Main3 problem */
     public void game(int countToDeath){
 
-        Element current=start;
+        Element current=new Element(0, start);
+
         while(size > 0){
             for(int i=0;i<countToDeath;i++){
                 current=current.next;
             }
-            start=current.next;
+
             if(size>2){
                 System.out.println("Ginie osoba nr:" + delete(current));
             }else if(size == 2) {
-                System.out.println("Ginie ostatnia (kolega Flawiusza?) osoba nr:" + delete(current));
+                System.out.println("Przeżywa Flawiusz - osoba nr:" + delete(current));
             } else {
-                System.out.println("Przeżyła osoba nr:" + current.data);
+                System.out.println("Przeżywa kolega Flawiusza - osoba nr:" + current.data);
                 break;
             }
-
+            start=current;
             current=start;
         }
     }
