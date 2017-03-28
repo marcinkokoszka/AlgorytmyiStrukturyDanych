@@ -3,11 +3,15 @@ package pl.marcinkokoszka.Lista1;
 /**
  * Created by kokoseq on 08.03.2017.
  */
-public class Student {
+public class Student implements Comparable {
     private String name;
     private String surname;
     private int indexNo;
     private double grade;
+
+    public Student(int indexNo){
+        this.indexNo = indexNo;
+    }
 
     public Student(String name, String surname, int indexNo, double grade) {
         this.name = name;
@@ -57,5 +61,11 @@ public class Student {
 
     public String toString(){
         return surname + ", " + name + ", " + indexNo + ", " + grade;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Student s = (Student) o;
+        return this.indexNo > s.indexNo? 1:this.indexNo < s.indexNo? -1:0;
     }
 }

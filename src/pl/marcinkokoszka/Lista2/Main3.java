@@ -19,13 +19,13 @@ public class Main3 {
     }
 
     public void setInts(){
-        //System.out.print("Podaj liczbę osób (N):");
-        //Scanner in=new Scanner(System.in);
-        //n =in.nextInt();
-        n = 41;
-        //System.out.print("Podaj, co która osoba ginie (K):");
-        //k =in.nextInt();
-        k = 3;
+        System.out.print("Podaj liczbę osób (N):");
+        Scanner in=new Scanner(System.in);
+        n =in.nextInt();
+//        n = 41;
+        System.out.print("Podaj, co która osoba ginie (K):");
+        k =in.nextInt();
+//        k = 3;
     }
 
     public void buildCircularLinkedList(){

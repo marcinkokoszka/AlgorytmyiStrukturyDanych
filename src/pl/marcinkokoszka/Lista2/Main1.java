@@ -83,6 +83,21 @@ public class Main1 {
         lls.clear();
         System.out.println("Czy lista teraz jest pusta?");
         System.out.println(lls.isEmpty());
+
+        LinkedList<Student> lls1 = new LinkedList<Student>();
+        lls1.add(new Student(1));
+        lls1.add(new Student(4));
+        lls1.add(new Student(17));
+
+        LinkedList<Student> lls2 = new LinkedList<Student>();
+        lls2.add(new Student(2));
+        lls2.add(new Student(3));
+        lls2.add(new Student(5));
+        lls2.add(new Student(20));
+
+        System.out.println();
+        LinkedList<Student> lls3 = new LinkedList<>(lls1, lls2);
+        printList(lls3.iterator());
     }
 
     private static void printList(Iterator iterator){

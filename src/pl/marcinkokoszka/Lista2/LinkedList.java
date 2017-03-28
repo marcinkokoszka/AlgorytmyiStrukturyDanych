@@ -5,7 +5,8 @@ import pl.marcinkokoszka.Lista1.iterators.Iterator;
 /**
  * Created by kokoseq on 15.03.2017.
  */
-public class LinkedList<T> implements List<T> {
+
+public class LinkedList<T extends Comparable> implements List<T> {
     private Element<T> first;
     private int size;
 
@@ -17,6 +18,42 @@ public class LinkedList<T> implements List<T> {
     public void clear(){
         first = null;
         size=0;
+    }
+
+    public LinkedList(LinkedList<T> A, LinkedList<T> B){
+        first = null;
+        clear();
+
+        Element<T> tempA;
+        Element<T> tempB;
+        tempA = A.first;
+        tempB = B.first;
+        int flaga = 0;
+
+        while(tempA != null && tempB != null){
+            if (tempA.value.compareTo(tempB.value) > 0){
+                add(tempB.value);
+                tempB = tempB.getNext();
+                flaga = 1;
+            } else {
+                add(tempA.value);
+                tempA = tempA.getNext();
+                flaga = 2;
+            }
+        }
+
+        if (flaga == 1) {
+            while (tempA != null) {
+                add(tempA.value);
+                tempA = tempA.getNext();
+            }
+        }
+        if (flaga == 2) {
+            while (tempB != null) {
+                add(tempB.value);
+                tempB = tempB.getNext();
+            }
+        }
     }
 
     public int size(){
@@ -122,7 +159,7 @@ public class LinkedList<T> implements List<T> {
         return new ValueIterator();
     }
 
-    private static final class Element<T>{
+    private static final class Element<T extends Comparable>{
         private T value;
         private Element<T> next = null;
 

@@ -5,7 +5,7 @@ import pl.marcinkokoszka.Lista1.iterators.Iterator;
 /**
  * Created by kokoseq on 23.03.2017.
  */
-public class DoublyLinkedList implements List {
+public class DoublyLinkedList /*implements List*/ {
 
     private final Element _headAndTail = new Element(null); // wartownik
     private int _size; // rozmiar listy, długość listy
@@ -125,6 +125,7 @@ public class DoublyLinkedList implements List {
             _previous.setNext(_next);
             _next.setPrevious(_previous);
         }
+
     } // koniec definiowania klasy elementu
 
     private final class ValueIterator implements Iterator {
