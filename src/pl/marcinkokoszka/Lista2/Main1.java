@@ -107,7 +107,7 @@ public class Main1 {
         }
     }
 
-    private static LinkedList<Student> readStudentsFromTxt(){
+    public static LinkedList<Student> readStudentsFromTxt(){
         try (FileReader fr = new FileReader("Studenci.txt");
              BufferedReader br = new BufferedReader(fr)){
 
