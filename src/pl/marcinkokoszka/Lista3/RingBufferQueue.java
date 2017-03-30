@@ -24,7 +24,7 @@ public class RingBufferQueue implements ObjectQueue {
             return this.capacity - this.available;
         }
 
-        public void enqueue(Object element){
+        public boolean enqueue(Object element){
 
             if(available < capacity){
                 if(writePos >= capacity){
@@ -33,12 +33,14 @@ public class RingBufferQueue implements ObjectQueue {
                 elements[writePos] = element;
                 writePos++;
                 available++;
+                return true;
             }
+            return false;
         }
 
         public Object dequeue() throws EmptyQueueException{
             if(available == 0){
-                return null;
+                throw new EmptyQueueException();
             }
             int nextSlot = writePos - available;
             if(nextSlot < 0){
