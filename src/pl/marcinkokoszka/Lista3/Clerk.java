@@ -4,21 +4,37 @@ package pl.marcinkokoszka.Lista3;
  * Created by kokoseq on 30.03.2017.
  */
 public class Clerk {
-    private Object currentlyServiced;
+    private String name;
+    private Customer currentlyServiced;
+    private int minutesToEndService;
 
-    public Clerk(){
+    public Clerk(String name) {
+        this.name = name;
         currentlyServiced = null;
     }
 
-    public void startService(Customer c) {
-        System.out.println("Start obsługi klienta " + c.toString());
-        for (int i = 0; i < c.getT(); i++) {
-            System.out.println();
-        }
-        System.out.println("Start obsługi klienta " + c.toString());
+    public String getName() {
+        return name;
     }
 
-    public boolean isAvailable(){
+    public void setCurrentlyServiced(Customer o){
+        currentlyServiced = o;
+        minutesToEndService = o.getT();
+    }
+
+    public boolean isAvailable() {
         return currentlyServiced == null;
+    }
+
+    public void decreaseMinutesToEndService() {
+        if (minutesToEndService > 0) minutesToEndService--;
+        if (minutesToEndService <= 0) {
+            minutesToEndService = 0;
+            currentlyServiced = null;
+        }
+    }
+
+    public String toString() {
+        return name + " obsluguje: " + currentlyServiced;
     }
 }

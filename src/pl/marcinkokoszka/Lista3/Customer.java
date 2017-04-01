@@ -3,7 +3,7 @@ package pl.marcinkokoszka.Lista3;
 /**
  * Created by kokoseq on 30.03.2017.
  */
-public class Customer {
+public class Customer implements Comparable{
     private int customerNo;
     private int t;
 
@@ -18,5 +18,10 @@ public class Customer {
 
     public String toString(){
         return "Klient nr: " + customerNo;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return 0;
     }
 }

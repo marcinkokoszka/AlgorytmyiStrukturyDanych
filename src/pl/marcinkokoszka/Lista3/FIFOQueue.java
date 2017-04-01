@@ -18,9 +18,8 @@ public class FIFOQueue<T extends Comparable> {
         this(new LinkedList());
     }
 
-    public boolean enqueue(T value) {
+    public void enqueue(T value) {
         list.add(value);
-        return true;
     }
 
     public Object dequeue() throws EmptyQueueException {

@@ -17,7 +17,7 @@ public class FIFOQueueDirectImplementation<T extends Comparable> implements Queu
         size=0;
     }
 
-    public boolean enqueue(T value) {
+    public void enqueue(T value) {
         if (first == null) first = new Element<>(value);
         else {
             Element<T> currentElement = first;
@@ -27,7 +27,6 @@ public class FIFOQueueDirectImplementation<T extends Comparable> implements Queu
             currentElement.next = new Element<>(value);
         }
         size++;
-        return true;
     }
 
     public T dequeue() throws EmptyQueueException {
