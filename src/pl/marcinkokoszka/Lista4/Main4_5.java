@@ -3,6 +3,7 @@ package pl.marcinkokoszka.Lista4;
 import com.sun.xml.internal.bind.v2.TODO;
 import sun.invoke.empty.Empty;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -11,18 +12,23 @@ import java.util.Scanner;
 public class Main4_5 {
 
     public static void main(String[] args) {
-        calculator();
+
+        String[] formula = getFormula();
+        calculator(formula);
     }
 
-    //TODO make calculator take String[] and separate input from the algorythm
-
-    private static void calculator(){
-        UnlimitedListStack<Double> stack=new UnlimitedListStack<>();
-        Scanner s=new Scanner (System.in);
+    private static String[] getFormula() {
+        Scanner s = new Scanner(System.in);
         String[] formula;
-        Double tempA, tempB;
         System.out.println("Podaj wyrażenie w Odwróconej Notacji Polskiej ze spacjami.");
-        formula=s.nextLine().split(" ");
+        formula = s.nextLine().split(" ");
+        return formula;
+    }
+
+    private static void calculator(String[] formula) {
+        System.out.println("Formuła: " + Arrays.toString(formula));
+        UnlimitedListStack<Double> stack = new UnlimitedListStack<>();
+        Double tempA, tempB;
         for (String aFormula : formula) {
             if (Character.isDigit(aFormula.charAt(0))) {
                 stack.push(new Double(aFormula));
