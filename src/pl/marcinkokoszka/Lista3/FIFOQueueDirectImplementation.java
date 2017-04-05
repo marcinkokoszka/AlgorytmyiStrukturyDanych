@@ -6,6 +6,7 @@ package pl.marcinkokoszka.Lista3;
 public class FIFOQueueDirectImplementation<T extends Comparable> implements Queue<T> {
     private Element<T> first;
     private int size;
+    private int maxSize = 100;
 
     public FIFOQueueDirectImplementation(){
         first = null;
@@ -17,7 +18,13 @@ public class FIFOQueueDirectImplementation<T extends Comparable> implements Queu
         size=0;
     }
 
+    public void setMaxSize(int maxSize){
+        this.maxSize = maxSize;
+    }
+
+    //TODO dodać private element last i stałą złożoność enqueue
     public void enqueue(T value) {
+        if (size == maxSize) return;
         if (first == null) first = new Element<>(value);
         else {
             Element<T> currentElement = first;

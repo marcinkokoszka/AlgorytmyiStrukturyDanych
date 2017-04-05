@@ -17,6 +17,7 @@ public class Main3_3 {
         int initialNoOfCustomers = 100;
         currentCustomerNo = initialNoOfCustomers + 1;
         FIFOQueueDirectImplementation<Customer> sc = generateCustomers(initialNoOfCustomers);
+        //sc.setMaxSize(initialNoOfCustomers);
 
         service(clerks, sc);
     }

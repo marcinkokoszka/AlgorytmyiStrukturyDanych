@@ -16,6 +16,8 @@ public class Main3_1 {
     public static void main(String[] args) {
         System.out.println("Utworzenie nowej kolejki studentów.\n");
         FIFOQueueDirectImplementation<Student> q = new FIFOQueueDirectImplementation<>();
+        System.out.println("Ustalenie ograniczenia na 4.\n");
+        q.setMaxSize(4);
 
         System.out.println("Dodanie 5 studentów do kolejki:");
         Student s1 = new Student("Kowalski", "Jan", 111111, 5.0);
@@ -103,6 +105,7 @@ public class Main3_1 {
              BufferedReader br = new BufferedReader(fr)) {
 
             FIFOQueueDirectImplementation<Student> students = new FIFOQueueDirectImplementation<>();
+            students.setMaxSize(100);
             String line;
             String[] dataFromLine;
 
