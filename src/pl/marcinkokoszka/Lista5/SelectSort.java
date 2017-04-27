@@ -1,12 +1,12 @@
 package pl.marcinkokoszka.Lista5;
 
-import java.util.Comparator;
-import pl.marcinkokoszka.Lista2.List;
+import pl.marcinkokoszka.Lista4.List;
+import pl.marcinkokoszka.Lista5.Comparators.Comparator;
 
 /**
  * Created by kokoseq on 25.04.2017.
  */
-public class SelectSort<T extends Comparable> implements ListSorter<T>, ListSorterCounter {
+public class SelectSort implements ListSorter, ListSorterCounter {
 
     private int assignments = 0;
     private int compares = 0;
@@ -16,7 +16,7 @@ public class SelectSort<T extends Comparable> implements ListSorter<T>, ListSort
     public SelectSort(Comparator comparator) { _comparator = comparator; }
 
     @Override
-    public List<T> sort(List<T> list) {
+    public List sort(List list) {
         int size = list.size();
         for (int slot = 0; slot < size - 1; ++slot) {
             int smallest = slot;
@@ -30,13 +30,12 @@ public class SelectSort<T extends Comparable> implements ListSorter<T>, ListSort
         return list;
     }
 
-    @SuppressWarnings("unchecked")
-    private void swap(List<T> list, int left, int right) {
+    private void swap(List list, int left, int right) {
         if (left != right) { // sprawdzenie, czy to są dwa różne elementy (czy przestawiać)
-            Comparable temp = list.get(left);
+            Object temp = list.get(left);
             list.set(left, list.get(right));
             assignments++;
-            list.set(right, (T) temp);
+            list.set(right, temp);
             assignments++;
         }
     }

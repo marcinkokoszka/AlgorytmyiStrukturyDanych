@@ -1,16 +1,15 @@
 package pl.marcinkokoszka.Lista5;
 
-import pl.marcinkokoszka.Lista2.LinkedList;
 import pl.marcinkokoszka.Lista1.iterators.Iterator;
-import pl.marcinkokoszka.Lista2.List;
-
-import java.util.Comparator;
+import pl.marcinkokoszka.Lista4.ArrayList;
+import pl.marcinkokoszka.Lista4.List;
+import pl.marcinkokoszka.Lista5.Comparators.Comparator;
 
 /**
  * Created by kokoseq on 25.04.2017.
  */
 
-public class InsertSort<T extends Comparable> implements ListSorter<T>, ListSorterCounter {
+public class InsertSort implements ListSorter, ListSorterCounter {
 
     private int assignments = 0;
     private int compares = 0;
@@ -21,8 +20,8 @@ public class InsertSort<T extends Comparable> implements ListSorter<T>, ListSort
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<T> sort(List<T> list) {
-        final List<T> result = new LinkedList<>();
+    public List sort(List list) {
+        final List result = new ArrayList();
         Iterator it = list.iterator();
         for (it.first(); !it.isDone(); it.next()) {
             int slot = result.size();
@@ -32,7 +31,7 @@ public class InsertSort<T extends Comparable> implements ListSorter<T>, ListSort
                 --slot;
             }
             assignments++;
-            result.insert(slot, (T) it.current());
+            result.insert(slot, it.current());
         }
         return result;
     }

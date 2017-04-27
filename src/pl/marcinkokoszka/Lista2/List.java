@@ -2,8 +2,6 @@ package pl.marcinkokoszka.Lista2;
 
 import pl.marcinkokoszka.Lista1.iterators.Iterator;
 
-import java.util.Comparator;
-
 /**
  * Created by kokoseq on 15.03.2017.
  */
@@ -20,6 +18,5 @@ public interface List<T extends Comparable> extends Iterable {
     int indexOf(T value);
     boolean isEmpty();
     void clear();
-
     Iterator iterator();
 }

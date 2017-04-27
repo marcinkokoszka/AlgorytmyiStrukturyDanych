@@ -9,9 +9,9 @@ public interface ListSorterCounter {
 
     int getCompares();
 
-    public void setAssignments(int assignments);
+    void setAssignments(int assignments);
 
-    public void setCompares(int compares);
+    void setCompares(int compares);
 
     default void clear(){
         setAssignments(0);

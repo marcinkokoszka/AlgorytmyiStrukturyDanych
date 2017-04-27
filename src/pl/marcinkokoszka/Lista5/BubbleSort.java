@@ -1,13 +1,13 @@
 package pl.marcinkokoszka.Lista5;
 
-import java.util.Comparator;
-import pl.marcinkokoszka.Lista2.List;
+import pl.marcinkokoszka.Lista4.List;
+import pl.marcinkokoszka.Lista5.Comparators.Comparator;
 
 /**
  * Created by kokoseq on 25.04.2017.
  */
 
-public class BubbleSort<T extends Comparable> implements ListSorter<T>, ListSorterCounter {
+public class BubbleSort implements ListSorter, ListSorterCounter {
 
     private int assignments = 0;
     private int compares = 0;
@@ -17,31 +17,29 @@ public class BubbleSort<T extends Comparable> implements ListSorter<T>, ListSort
     public BubbleSort(Comparator comparator) { _comparator = comparator; }
 
     @Override
-    public List<T> sort(List<T> list) {
-        int lastSwap = list.size() - 1;
-        while(lastSwap > 0){
-            int end = lastSwap;
-            lastSwap = 0;
-            for (int left = 0; left < end; ++left) {
-                compares++;
-                if (_comparator.compare(list.get(left), list.get(left+1)) > 0)
-                {
-                    T temp=list.get(left);
-                    while(left<end && _comparator.compare(temp, list.get(left+1)) > 0)
-                    {
-                        list.set(left, list.get(left+1));
-                        left++;
+    public List sort(List list) {
+        int size = list.size();
 
-                        compares++;
-                        assignments++;
-                    }
-                    lastSwap = left;
-                    list.set(left, temp);
-                    assignments++;
+        for (int pass = 1; pass < size; ++pass) {
+            for (int left = 0; left < (size - pass); ++left) {
+                int right = left + 1;
+
+                this.compares++;
+                if (_comparator.compare(list.get(left), list.get(right)) > 0) {
+                    swap(list, left, right);
                 }
             }
+
         }
         return list;
+    }
+
+    private void swap(List list, int left, int right) {
+        Object temp = list.get(left);
+        assignments++;
+        list.set(left, list.get(right));
+        assignments++;
+        list.set(right, temp);
     }
 
     @Override
