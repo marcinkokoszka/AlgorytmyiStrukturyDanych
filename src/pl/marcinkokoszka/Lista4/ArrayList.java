@@ -17,7 +17,8 @@ public class ArrayList implements List {
             clear();
         }
         public ArrayList() // konstruktor listy kreujący tablicę o domyślnym rozmiarze
-        { this(0); }
+        { this(1); }
+
         public ArrayList(Object [ ] array) // konstruktor listy z wypełnieniem listy elementami tablicy
         { _initialCapacity = array.length;
             clear();
