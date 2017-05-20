@@ -42,20 +42,25 @@ public class MergeSort implements ListSorter {
         l.first();
         r.first();
         while (!l.isDone() && !r.isDone()) {
+            compares++;
             if (_comparator.compare(l.current(), r.current()) <= 0) {
                 result.add(l.current());
+                assignments++;
                 l.next();
             } else {
                 result.add(r.current());
+                assignments++;
                 r.next();
             }
         }
         while (!l.isDone()) {
             result.add(l.current());
+            assignments++;
             l.next();
         }
         while (!r.isDone()) {
             result.add(r.current());
+            assignments++;
             r.next();
         }
         return result;

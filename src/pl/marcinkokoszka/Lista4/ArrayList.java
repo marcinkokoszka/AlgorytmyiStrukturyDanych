@@ -36,7 +36,7 @@ public class ArrayList implements List {
         }
 
         public void insert(int index, Object value) throws IndexOutOfBoundsException {
-            if (index < 0 || index > size()) throw new IndexOutOfBoundsException();
+            //if (index < 0 || index > size()) throw new IndexOutOfBoundsException();
             ensureCapacity(_size + 1);
             System.arraycopy(array, index, array, index + 1, _size - index);
             array[index] = value;
@@ -113,11 +113,11 @@ public class ArrayList implements List {
     private final class ArrayIterator implements Iterator {
         final int first;
         final int last;
-        int current = -1;
+        int current = 0;
 
         public ArrayIterator(){
             first = 0;
-            last = array.length - 1;
+            last = _size - 1;
         }
 
         public void first(){

@@ -13,10 +13,11 @@ public class ShellSort implements ListSorter {
     private int compares = 0;
 
     private final Comparator _comparator;
-    private final int[] _increments = {121, 40, 13, 4, 1}; // przyjęte arbitralnie
+    private final Integer[] _increments; // przyjęte arbitralnie
 
-    public ShellSort(Comparator comparator) {
+    public ShellSort(Comparator comparator, Integer[] increments) {
         _comparator = comparator;
+        _increments = increments;
     }
 
     public List sort(List list) {
