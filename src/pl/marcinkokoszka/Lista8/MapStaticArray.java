@@ -34,10 +34,11 @@ public class MapStaticArray<K, V> {
 
         Entry<K, V> newEntry = new Entry<>(newKey, data);
 
+        boolean inserted = false;
         if (table[hash] == null) {
             table[hash] = newEntry;
+            inserted = true;
         } else {
-            boolean inserted = false;
             for(int i = hash; i < table.length; i++){
                 if(table[i] == null){
                     table[i] = newEntry;
@@ -59,6 +60,8 @@ public class MapStaticArray<K, V> {
                 table[size++] = newEntry;
             }
         }
+        if(inserted)
+            size++;
     }
 
     private void ensureCapacity() {
@@ -93,17 +96,20 @@ public class MapStaticArray<K, V> {
 
         if (table[hash].key.equals(deleteKey)) {
             table[hash] = null;
+            size--;
             return true;
         } else {
             for (int i = hash; i < table.length; i++) {
                 if (table[i].key.equals(deleteKey)) {
                     table[i] = null;
+                    size--;
                     return true;
                 }
             }
             for (int i = 0; i < hash; i++) {
                 if (table[i].key.equals(deleteKey)) {
                     table[i] = null;
+                    size--;
                     return true;
                 }
             }
@@ -113,7 +119,7 @@ public class MapStaticArray<K, V> {
 
     public String toString(){
         StringBuilder s = new StringBuilder();
-        for(int i = 0; i < size; i++){
+        for(int i = 0; i < table.length; i++){
             if(table[i] != null)
                 s.append(table[i].key).append(":").append(table[i].value).append("\n");
         }

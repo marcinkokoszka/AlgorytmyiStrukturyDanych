@@ -1,6 +1,6 @@
 package pl.marcinkokoszka.Lista8;
 
-public class Main {
+public class Main_2 {
 
 	/**
 	 * @param args
