@@ -3,7 +3,7 @@ package pl.marcinkokoszka.Lista8;
 /**
  * Created by kokoseq on 20.05.2017.
  */
-public class Main8 {
+public class Main8_1 {
 
     public static void main(String[] args) {
         MapArray<Integer, String> map1 = new MapArray<>();
@@ -53,5 +53,26 @@ public class Main8 {
         System.out.println("Zawartość mapy:");
         System.out.println(map2);
 
+
+        MapStaticArray<Integer, String> map3 = new MapStaticArray<>();
+
+        System.out.println("Utworzenie hash mapy z tablicą");
+        System.out.println("Dodanie kilku pozycji");
+        map3.put(1, "Marcin");
+        map3.put(2, "Anna");
+        map3.put(3, "Zbigniew");
+        map3.put(8, "Laura");
+        map3.put(19, "Marzenna");
+        map3.put(21, "Hubert");
+        map3.put(189, "Michał");
+        map3.put(34565, "Albert");
+
+        System.out.println("Zawartość mapy:");
+        System.out.println(map3);
+
+        System.out.println("Usunięcie klucza '189'");
+        map3.remove(189);
+        System.out.println("Zawartość mapy:");
+        System.out.println(map3);
     }
 }

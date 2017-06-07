@@ -20,8 +20,6 @@ class HashMap<K, V> {
         }
     }
 
-
-    @SuppressWarnings("unchecked")
     public HashMap(){
         table = new Entry[capacity];
     }

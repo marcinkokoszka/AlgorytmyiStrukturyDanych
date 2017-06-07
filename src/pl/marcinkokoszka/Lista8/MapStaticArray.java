@@ -9,89 +9,119 @@ import java.util.Set;
 
 public class MapStaticArray<K, V> {
     private int size;
-    private int DEFAULT_CAPACITY = 16;
-    @SuppressWarnings("unchecked")
-    private MapEntry<K, V>[] values = new MapEntry[DEFAULT_CAPACITY];
+    private Entry<K,V>[] table;
+    private int capacity= 4;
 
-    static class MapEntry<K, V> {
-        private final K key;
-        private V value;
+    static class Entry<K, V> {
+        K key;
+        V value;
 
-        public MapEntry(K key, V value) {
+        public Entry(K key, V value){
             this.key = key;
             this.value = value;
         }
     }
 
-
-    public V get(K key) {
-        for (int i = 0; i < size; i++) {
-            if (values[i] != null) {
-                if (values[i].key.equals(key)) {
-                    return values[i].value;
-                }
-            }
-        }
-        return null;
+    public MapStaticArray(){
+        table = new Entry[capacity];
     }
 
-    public void put(K key, V value) {
-        boolean insert = true;
-        for (int i = 0; i < size; i++) {
-            if (values[i].key.equals(key)) {
-                values[i].value = value;
-                insert = false;
+    public void put(K newKey, V data) {
+        if (newKey == null)
+            return;
+
+        int hash = hash(newKey);
+
+        Entry<K, V> newEntry = new Entry<>(newKey, data);
+
+        if (table[hash] == null) {
+            table[hash] = newEntry;
+        } else {
+            boolean inserted = false;
+            for(int i = hash; i < table.length; i++){
+                if(table[i] == null){
+                    table[i] = newEntry;
+                    inserted = true;
+                    break;
+                }
             }
-        }
-        if (insert) {
-            ensureCapacity();
-            values[size++] = new MapEntry<>(key, value);
+            if (!inserted){
+                for(int i = 0; i < hash; i++){
+                    if(table[i] == null){
+                        table[i] = newEntry;
+                        inserted = true;
+                        break;
+                    }
+                }
+            }
+            if(!inserted){
+                ensureCapacity();
+                table[size++] = newEntry;
+            }
         }
     }
 
     private void ensureCapacity() {
-        if (size == values.length) {
-            int newSize = values.length * 2;
-            values = Arrays.copyOf(values, newSize);
+        if (size == table.length) {
+            int newSize = table.length * 2;
+            table = Arrays.copyOf(table, newSize);
         }
     }
 
-    public int size() {
-        return size;
-    }
-
-    public void remove(K key) {
-        for (int i = 0; i < size; i++) {
-            if (values[i].key.equals(key)) {
-                values[i] = null;
-                size--;
-                condenseArray(i);
+    public V get(K key){
+        int hash = hash(key);
+        if(table[hash].key.equals(key)){
+            return table[hash].value;
+        }else{
+            for(int i = hash; i < table.length; i++){
+                if(table[i].key.equals(key)){
+                    return table[i].value;
+                }
             }
+            for(int i = 0; i < hash; i++){
+                if(table[i].key.equals(key)){
+                    return table[i].value;
+                }
+            }
+            return null;
         }
     }
 
-    private void condenseArray(int start) {
-        System.arraycopy(values, start + 1, values, start, size - start);
-    }
+    public boolean remove(K deleteKey) {
 
-    public Set<K> keySet() {
-        Set<K> set = new HashSet<K>();
-        for (int i = 0; i < size; i++) {
-            set.add(values[i].key);
+        int hash = hash(deleteKey);
+
+        if (table[hash].key.equals(deleteKey)) {
+            table[hash] = null;
+            return true;
+        } else {
+            for (int i = hash; i < table.length; i++) {
+                if (table[i].key.equals(deleteKey)) {
+                    table[i] = null;
+                    return true;
+                }
+            }
+            for (int i = 0; i < hash; i++) {
+                if (table[i].key.equals(deleteKey)) {
+                    table[i] = null;
+                    return true;
+                }
+            }
+            return false;
         }
-        return set;
-    }
-
-    private int hash(K key){
-        return Math.abs(key.hashCode()) % DEFAULT_CAPACITY;
     }
 
     public String toString(){
         StringBuilder s = new StringBuilder();
         for(int i = 0; i < size; i++){
-            if(values[i] != null)
-            s.append(values[i].key).append(":").append(values[i].value).append("\n");
+            if(table[i] != null)
+                s.append(table[i].key).append(":").append(table[i].value).append("\n");
         }
         return s.toString();
     }
+
+    private int hash(K key){
+        return Math.abs(key.hashCode()) % capacity;
+    }
+
 }
