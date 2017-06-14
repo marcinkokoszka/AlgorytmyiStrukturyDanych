@@ -1,106 +1,170 @@
 package pl.marcinkokoszka.Lista8;
 
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-import java.util.Random;
+import java.util.*;
 
+//Zadanie 2 - macierz sąsiedztwa - nieskierowany - wyszukiwanie minimalnego drzewa rozpinającego
+//Zadanie 3
 public class GraphAdjacencyMatrix {
-    private static final String NEWLINE = System.getProperty("line.separator");
-    private int V;
-    private int E;
-    private boolean[][] adj;
-    
-    // empty graph with V vertices
-    public GraphAdjacencyMatrix(int V) {
-        if (V < 0) throw new RuntimeException("Number of vertices must be nonnegative");
-        this.V = V;
-        this.E = 0;
-        this.adj = new boolean[V][V];
+    public Node rootNode;
+    public ArrayList<Node> nodes = new ArrayList<>();
+    public int[][] adjMatrix;
+    int size;
+
+    public void setRootNode(Node n) {
+        this.rootNode = n;
     }
 
-    // random graph with V vertices and E edges
-    public GraphAdjacencyMatrix(int V, int E) {
-        this(V);
-        if (E < 0) throw new RuntimeException("Number of edges must be nonnegative");
-        if (E > V*(V-1) + V) throw new RuntimeException("Too many edges");
-
-        Random random = new Random();
-        while (this.E != E) {
-            int v = random.nextInt(V);
-            int w = random.nextInt(V);
-            addEdge(v, w);
-        }
+    public Node getRootNode() {
+        return this.rootNode;
     }
 
-    // number of vertices and edges
-    public int V() { return V; }
-    public int E() { return E; }
-
-
-    // add undirected edge v-w
-    public void addEdge(int v, int w) {
-        if (!adj[v][w]) E++;
-        adj[v][w] = true;
-        adj[w][v] = true;
-    }
-    
-    // does the graph contain the edge v-w?
-    public boolean contains(int v, int w) {
-        return adj[v][w];
+    public void addNode(Node n) {
+        nodes.add(n);
     }
 
-    // return list of neighbors of v
-    public Iterable<Integer> adj(int v) {
-        return new AdjIterator(v);
-    }
-
-    // support iteration over graph vertices
-    private class AdjIterator implements Iterator<Integer>, Iterable<Integer> {
-        private int v;
-        private int w = 0;
-
-        AdjIterator(int v) {
-            this.v = v;
+    public void addEdge(Node to, Node from) {
+        if (adjMatrix == null) {
+            size = nodes.size();
+            adjMatrix = new int[size][size];
         }
 
-        public Iterator<Integer> iterator() {
-            return this;
+        int startIndex = nodes.indexOf(from);
+        int endIndex = nodes.indexOf(to);
+        adjMatrix[startIndex][endIndex] = 1;
+        adjMatrix[endIndex][startIndex] = 1;
+    }
+
+    public void addEdgeWeighted(Node to, Node from, int weight) {
+        if (adjMatrix == null) {
+            size = nodes.size();
+            adjMatrix = new int[size][size];
         }
 
-        public boolean hasNext() {
-            while (w < V) {
-                if (adj[v][w]) return true;
-                w++;
+        int startIndex = nodes.indexOf(from);
+        int endIndex = nodes.indexOf(to);
+        adjMatrix[startIndex][endIndex] = weight;
+        adjMatrix[endIndex][startIndex] = weight;
+    }
+
+    private Node getUnvisitedChildNode(Node n) {
+        int index = nodes.indexOf(n);
+        int j = 0;
+        while (j < size) {
+            if (adjMatrix[index][j] == 1 && !nodes.get(j).visited) {
+                return nodes.get(j);
             }
-            return false;
+            j++;
         }
+        return null;
+    }
 
-        public Integer next() {
-            if (!hasNext()) {
-                throw new NoSuchElementException();
+    public GraphAdjacencyMatrix getMinimumSpanningTree() {
+
+        final Set<Node> unvisited = new HashSet<>();
+        unvisited.addAll(nodes);
+        unvisited.remove(rootNode);
+
+        final List<Edge> path = new ArrayList<>();
+        final Queue<Edge> edgesAvailable = new PriorityQueue<>();
+
+        addEdgesToNodes();
+
+        Node vertex = rootNode;
+        while (!unvisited.isEmpty()) {
+            for (Edge e : vertex.getEdges()) {
+                if (unvisited.contains(e.getTo()))
+                    edgesAvailable.add(e);
             }
-            return w++;
+
+            Edge e = edgesAvailable.remove();
+            while (!unvisited.contains(e.getTo()))
+                e = edgesAvailable.remove();
+            path.add(e);
+
+            vertex = e.getTo();
+            unvisited.remove(vertex);
         }
 
-        public void remove()  {
-            throw new UnsupportedOperationException();
+        return buildGraphFromPath(path);
+    }
+
+    private GraphAdjacencyMatrix buildGraphFromPath(List<Edge> path) {
+        GraphAdjacencyMatrix g = new GraphAdjacencyMatrix();
+        g.addNode(path.get(0).getFrom());
+        for (Edge e : path) {
+            g.addNode(e.getTo());
         }
+        g.nodes.sort((o1, o2) -> o1.label > o2.label ? 1 : o1.label < o2.label ? -1 : 0);
+
+        for (Edge e : path) {
+            g.addEdgeWeighted(e.getTo(), e.getFrom(), e.getWeight());
+        }
+        return g;
+    }
+
+    private void addEdgesToNodes() {
+        for (int i = 0; i < nodes.size(); i++) {
+            for (int j = i; j < adjMatrix[i].length; j++) {
+                if (adjMatrix[i][j] != 0)
+                    nodes.get(i).getEdges().add(new Edge(nodes.get(i), nodes.get(j), adjMatrix[i][j]));
+            }
+        }
+    }
+
+    public void bfs() {
+        Queue<Node> q = new LinkedList<>();
+        q.add(this.rootNode);
+        printNode(this.rootNode);
+        rootNode.visited = true;
+        while (!q.isEmpty()) {
+            Node n = q.remove();
+            Node child;
+            while ((child = getUnvisitedChildNode(n)) != null) {
+                child.visited = true;
+                printNode(child);
+                q.add(child);
+            }
+        }
+        clearNodes();
+    }
+
+    public void dfs() {
+        Stack<Node> s = new Stack<>();
+        s.push(this.rootNode);
+        rootNode.visited = true;
+        printNode(rootNode);
+        while (!s.isEmpty()) {
+            Node n = s.peek();
+            Node child = getUnvisitedChildNode(n);
+            if (child != null) {
+                child.visited = true;
+                printNode(child);
+                s.push(child);
+            } else {
+                s.pop();
+            }
+        }
+        clearNodes();
+    }
+
+    private void clearNodes() {
+        int i = 0;
+        while (i < size) {
+            Node n = nodes.get(i);
+            n.visited = false;
+            i++;
+        }
+    }
+
+    private void printNode(Node n) {
+        System.out.print(n.label + " ");
     }
 
     public String toString() {
-        StringBuilder s = new StringBuilder();
-        for (int v = 0; v < V; v++) {
-            s.append(v + ": ");
-            int x = 0;
-            for (int w : adj(v)) {
-                s.append(w + " ");
-                x++;
-            }
-            for (int i = x; i < V; i++)
-            	s.append("0 ");
-            s.append(NEWLINE);
+        StringBuilder sb = new StringBuilder();
+        for (int[] i : adjMatrix) {
+            sb.append(Arrays.toString(i)).append("\n");
         }
-        return s.toString();
+        return sb.toString();
     }
-    
 }
